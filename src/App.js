@@ -4,6 +4,7 @@ import { AppContext } from './store';
 import './App.css';
 import Home from './pages/Home';
 import SignUp from './pages/SignUp';
+import Login from './pages/Login';
 import MainNav from './components/Headers/MainNav';
 import Footer from './components/Footer'
 import decode from 'jwt-decode'
@@ -34,6 +35,7 @@ function App() {
         <Switch>
           <Route exact path={"/"} component={Home} />
           <Route exact path={"/signup"} component={SignUp}/>
+          <Route exact path={"/login"} component={Login}/>
         </Switch>
         <Footer />
       </Router>
