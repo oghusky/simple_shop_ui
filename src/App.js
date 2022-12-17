@@ -5,6 +5,7 @@ import './App.css';
 import Home from './pages/Home';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
+import UpdateUser from './pages/UpdateUser';
 import MainNav from './components/Headers/MainNav';
 import Footer from './components/Footer'
 import decode from 'jwt-decode'
@@ -36,6 +37,7 @@ function App() {
           <Route exact path={"/"} component={Home} />
           <Route exact path={"/signup"} component={SignUp}/>
           <Route exact path={"/login"} component={Login}/>
+          <Route exact path={"/updateme"} component={UpdateUser}/>
         </Switch>
         <Footer />
       </Router>

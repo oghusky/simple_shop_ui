@@ -1,4 +1,6 @@
 import axios from "axios";
+import authHeader from '../utils/authHeader'
+const token = localStorage.getItem("ShopEZToken");
 export const UserAPI = {
     login: async (login) => {
         try {
@@ -13,5 +15,13 @@ export const UserAPI = {
         } catch (err) {
             console.log(err);
         }
-    }
+    },
+    update: async(id,updateUser)=>{
+        try{
+            return axios.put(`user/id/${id}`,updateUser, authHeader(token));
+        }catch(err){
+            console.log(err);
+        }
+    },
+    delete: async(userId)=>{}
 }
