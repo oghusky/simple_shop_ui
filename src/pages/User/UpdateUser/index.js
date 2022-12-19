@@ -5,7 +5,7 @@ import TextInputs from "../../components/TextInputs";
 import Buttons from "../../components/Buttons";
 import { UserAPI } from "../../API/UserAPI"
 export default function UpdateUser() {
-    const { user, setUser, setToken } = useContext(AppContext);
+    const { user } = useContext(AppContext);
     const [update, setUpdate] = useState({
         email: "",
         firstName: "",
@@ -20,7 +20,7 @@ export default function UpdateUser() {
     });
     useEffect(() => {
         if (user) setUpdate(user)
-    }, []);
+    }, [user]);
     const handleChange = (event) => {
         const { name, value } = event.target;
         setUpdate({ ...update, [name]: value })
@@ -58,7 +58,7 @@ export default function UpdateUser() {
     }
     return (
         <div>
-            <Forms>
+            <Forms formTitle={"Update Your Information"}>
                 <TextInputs
                     name={"email"}
                     label={"Email *"}
@@ -139,7 +139,7 @@ export default function UpdateUser() {
                     onChange={handleChange}
                     type={"text"}
                 />
-                <Buttons onClick={handleSubmit} text={"Sign Up"} cssClass={"btn btn-primary btn-sm"} />
+                <Buttons onClick={handleSubmit} text={"Update"} cssClass={"btn btn-info btn-sm"} />
             </Forms>
         </div>
     )

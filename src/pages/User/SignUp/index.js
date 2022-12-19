@@ -1,28 +1,34 @@
 import { useState } from "react";
-import { useHistory } from "react-router";
+import { useHistory, Link } from "react-router-dom";
+import decode from 'jwt-decode'
 import Forms from '../../components/Forms'
 import TextInputs from '../../components/TextInputs'
 import Buttons from "../../components/Buttons";
-import { UserAPI } from "../../API/UserAPI";
+
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
-import decode from 'jwt-decode'
-export default function Login() {
+import { UserAPI } from "../../API/UserAPI";
+export default function SignUp() {
     const history = useHistory();
-    const [login, setLogin] = useState({
-        email: "",
-        password: ""
-    });
+    const [signup, setSignup] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        confirm: "",
+        signUpGoogle: false,
+        tokenSub: '',
+    })
     const handleChange = (event) => {
         const { name, value } = event.target;
-        setLogin({
-            ...login,
+        setSignup({
+            ...signup,
             [name]: value
         })
     }
     const handleSubmit = async () => {
         try {
-            const res = await UserAPI.login(login);
-            if (res.status === 200) {
+            const res = await UserAPI.signup(signup);
+            if (res.status === 201) {
                 localStorage.setItem("ShopEZUser", JSON.stringify(res.data.user))
                 localStorage.setItem("ShopEZToken", JSON.stringify(res.data.token))
             }
@@ -33,7 +39,7 @@ export default function Login() {
     }
     const handleGoogleSubmit = async (token) => {
         try {
-            const res = await UserAPI.login({
+            const res = await UserAPI.signup({
                 firstName: token.given_name,
                 lastName: token.family_name,
                 email: token.email,
@@ -41,7 +47,7 @@ export default function Login() {
                 signUpGoogle: true,
                 tokenSub: token.sub,
             });
-            if (res.status === 200) {
+            if (res.status === 201) {
                 localStorage.setItem("ShopEZUser", JSON.stringify(res.data.user))
                 localStorage.setItem("ShopEZToken", JSON.stringify(res.data.token))
             }
@@ -53,9 +59,9 @@ export default function Login() {
     const handleGoogleFail = async (result) => {
         console.log(result);
     }
-  return (
-    <div>
-        <div className="d-flex justify-content-center">
+    return (
+        <div>
+            <div className="d-flex justify-content-center">
                 <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
                     <GoogleLogin
                         size="large"
@@ -70,27 +76,55 @@ export default function Login() {
                     />
                 </GoogleOAuthProvider>
             </div>
-            <Forms>
+            <Forms formTitle={"Sign up to shop or sell"}>
                 <TextInputs
                     name={"email"}
                     label={"Email *"}
-                    value={login.email}
+                    value={signup.email}
                     placeholder={"Enter Email"}
                     onChange={handleChange}
                     type={"email"}
                     required
                 />
                 <TextInputs
+                    name={"firstName"}
+                    label={"First Name *"}
+                    value={signup.firstName}
+                    placeholder={"Enter First Name"}
+                    onChange={handleChange}
+                    type={"text"}
+                    required
+                />
+                <TextInputs
+                    name={"lastName"}
+                    label={"Last Name *"}
+                    value={signup.lastName}
+                    placeholder={"Enter Last Name"}
+                    onChange={handleChange}
+                    type={"text"}
+                    required
+                />
+                <TextInputs
                     name={"password"}
-                    label={"Password"}
-                    value={login.password}
+                    label={"Password *"}
+                    value={signup.password}
                     placeholder={"Enter Password"}
                     type={"password"}
                     onChange={handleChange}
                     required
                 />
-                <Buttons onClick={handleSubmit} text={"Sign Up"} cssClass={"btn btn-primary btn-sm"} />
+                <TextInputs
+                    name={"confirm"}
+                    label={"Confirm Password *"}
+                    value={signup.confirm}
+                    placeholder={"Re-Enter Password"}
+                    type={"password"}
+                    onChange={handleChange}
+                    required
+                />
+                <Buttons onClick={handleSubmit} text={"Sign Up"} cssClass={"btn btn-primary btn-sm"}/>
             </Forms>
-    </div>
-  )
+            <p>Already have an account? <Link to="/login">Login</Link></p>
+        </div>
+    );
 }
