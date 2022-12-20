@@ -17,6 +17,12 @@ export default function UpdateStoreContact() {
         state: "",
         zip: "",
         country: "",
+        twitter: "",
+        facebook: "",
+        instagram: "",
+        tiktok: "",
+        youtube: "",
+        policies: "",
     });
     useEffect(() => {
         getStoreInfo(storeId);
@@ -43,7 +49,9 @@ export default function UpdateStoreContact() {
     }
     return (
         <div>
-            <Forms formTitle={"Update Store Info"}>
+            <h3>Store Contact Information</h3>
+            <hr />
+            <Forms formTitle={"Store Info"}>
                 <TextInputs
                     name={"phone"}
                     label={"Phone"}
@@ -92,7 +100,65 @@ export default function UpdateStoreContact() {
                     onChange={handleChange}
                     type={"text"}
                 />
-                <Buttons onClick={handleSubmit} text={"Update"} cssClass={"btn btn-info btn-sm"}>Update Store</Buttons>
+                <Buttons onClick={handleSubmit} text={"Update"} cssClass={"btn btn-info btn-sm"}>Update</Buttons>
+            </Forms>
+            <h3>Store Socials</h3>
+            <hr />
+            <Forms formTitle={"Store Socials"}>
+                <TextInputs
+                    name={"twitter"}
+                    label={"Twitter tag"}
+                    value={store.twitter}
+                    placeholder={store.twitter ? store.twitter : "username"}
+                    onChange={handleChange}
+                    type={"text"}
+                />
+                <TextInputs
+                    name={"facebook"}
+                    label={"Facebook tag"}
+                    value={store.facebook}
+                    placeholder={store.facebook ? store.facebook : "username"}
+                    onChange={handleChange}
+                    type={"text"}
+                />
+                <TextInputs
+                    name={"instagram"}
+                    label={"Instagram tag"}
+                    value={store.instagram}
+                    placeholder={store.instagram ? store.instagram : "username"}
+                    onChange={handleChange}
+                    type={"text"}
+                />
+                <TextInputs
+                    name={"tiktok"}
+                    label={"Tiktok tag"}
+                    value={store.tiktok}
+                    placeholder={store.tiktok ? store.tiktok : "username"}
+                    onChange={handleChange}
+                    type={"text"}
+                />
+                <TextInputs
+                    name={"youtube"}
+                    label={"Youtube tag"}
+                    value={store.youtube}
+                    placeholder={store.youtube ? store.youtube : "username"}
+                    onChange={handleChange}
+                    type={"text"}
+                />
+                <Buttons onClick={handleSubmit} text={"Update"} cssClass={"btn btn-info btn-sm"}>Update</Buttons>
+            </Forms>
+            <Forms formTitle={"Store Policy"}>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Store Policy</label>
+                    <textarea
+                        class="form-control"
+                        rows="4"
+                        name={"policies"}
+                        value={store.policies}
+                        onChange={handleChange}
+                        type={"text"}></textarea>
+                </div>
+                <Buttons onClick={handleSubmit} text={"Update"} cssClass={"btn btn-info btn-sm"}>Update</Buttons>
             </Forms>
         </div>
     )
