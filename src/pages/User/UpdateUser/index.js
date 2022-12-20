@@ -1,9 +1,10 @@
 import { useState, useEffect, useContext } from "react"
-import { AppContext } from "../../store"
-import Forms from "../../components/Forms";
-import TextInputs from "../../components/TextInputs";
-import Buttons from "../../components/Buttons";
-import { UserAPI } from "../../API/UserAPI"
+import { AppContext } from "../../../store"
+import Forms from "../../../components/Forms";
+import TextInputs from "../../../components/TextInputs";
+import Buttons from "../../../components/Buttons";
+import { UserAPI } from "../../../API/UserAPI";
+
 export default function UpdateUser() {
     const { user } = useContext(AppContext);
     const [update, setUpdate] = useState({

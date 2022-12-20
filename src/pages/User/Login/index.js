@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
-import Forms from '../../components/Forms'
-import TextInputs from '../../components/TextInputs'
-import Buttons from "../../components/Buttons";
-import { UserAPI } from "../../API/UserAPI";
+import Forms from '../../../components/Forms'
+import TextInputs from '../../../components/TextInputs'
+import Buttons from "../../../components/Buttons";
+import { UserAPI } from "../../../API/UserAPI";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 import decode from 'jwt-decode'
 export default function Login() {
