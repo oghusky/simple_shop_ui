@@ -26,10 +26,10 @@ function App() {
   // get localstorage items on load
   useEffect(() => {
     const loginCheck = localStorage.getItem('ShopEZToken');
-    const user = localStorage.getItem('ShopEZUser');
-    if (loginCheck) {
+    const userCheck = localStorage.getItem("ShopEZUser")
+    if (loginCheck && userCheck) {
       setToken(loginCheck);
-      setUser(JSON.parse(user));
+      setUser(JSON.parse(userCheck));
     }
     // ============= save for later ========================
     // const isExpired = decode(JSON.parse(loginCheck));

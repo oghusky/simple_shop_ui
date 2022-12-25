@@ -2,6 +2,7 @@ import { useState, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 import { AppContext } from '../../../store'
 import { StoreAPI } from '../../../API/StoreAPI'
+import { ImageAPI } from '../../../API/ImageAPI'
 import Forms from '../../../components/Forms'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
@@ -9,15 +10,15 @@ import TextInputs from '../../../components/TextInputs'
 import Checkbox from '../../../components/CheckBox'
 import Buttons from '../../../components/Buttons'
 
-
 export default function CreateStore() {
     const { user } = useContext(AppContext)
     const history = useHistory();
     const [store, setStore] = useState({
         name: "",
         email: "",
-        useUserEmail: true
+        useUserEmail: true,
     });
+    const [file, setFile] = useState();
     const [show, setShow] = useState("none")
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -30,11 +31,14 @@ export default function CreateStore() {
                 name: store.name,
                 email: store.useUserEmail ? user.email : store.email
             }
+            const res = await StoreAPI.create(data);
             if (data.email) {
                 const res = await StoreAPI.create(data);
                 if (res.status === 201) {
                     console.log(res);
-                    localStorage.setItem("ShopEZUser", JSON.stringify(res.data.user));
+                    const { name, _id } = res.data.newStore;
+                    ImageAPI.createStoreImage({ file, name, _id, imageType: "logo" })
+                    localStorage.setItem("ShopEZUser", JSON.stringify(res.data.updatedUser));
                     localStorage.setItem("ShopEZToken", JSON.stringify(res.data.token));
                     handleClose();
                     history.push(`/store/id/${res.data.newStore._id}`)
@@ -45,6 +49,10 @@ export default function CreateStore() {
             console.log(err);
         }
     }
+    const handleFileChange = e => {
+        const { target } = e;
+        setFile(target.files[0]);
+    }
     const handleCheckBox = (e) => {
         const { checked } = e.target;
         setStore({ ...store, useUserEmail: checked });
@@ -53,7 +61,8 @@ export default function CreateStore() {
     const handleShow = () => { if ((store.name && store.email) || (store.name && store.useUserEmail)) setShow("block"); }
     return (
         <div>
-            <Forms>
+            <Forms enctype="multipart/form-data">
+            <input type="file" id="file" name="file" onChange={handleFileChange} />
                 <TextInputs
                     name={"name"}
                     label={"Name *"}
