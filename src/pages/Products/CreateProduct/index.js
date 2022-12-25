@@ -38,8 +38,9 @@ export default function CreateProduct() {
             const res = await ProductAPI.create(storeId, product);
             if (res.status === 201) {
                 console.log(res.data.product);
-                const { name, _id } = res.data.product;
+                const {_id } = res.data.product;
                 ImageAPI.createItemImage({ file, storeName: product.storeName, storeId, productId: _id, imageType: "product" })
+                history.push(`/product/item/${_id}`)
             }
         } catch (err) {
             console.log(err);

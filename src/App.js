@@ -12,6 +12,7 @@ import CreateStore from './pages/Store/CreateStore';
 import SeeStore from './pages/Store/SeeStore';
 import UpdateStoreContact from './pages/Store/UpdateStoreContact';
 import CreateProduct from './pages/Products/CreateProduct';
+import SeeProduct from './pages/Products/SeeProduct';
 // components
 import MainNav from './components/Headers/MainNav';
 import Footer from './components/Footer'
@@ -36,7 +37,7 @@ function App() {
     // const exDate = isExpired.exp;
     // const date = Math.floor((new Date().getTime())/1000);
     // console.log("current date is less than jwt exp date: ",date < exDate)
-  },[]);
+  }, []);
 
   return (
     <AppContext.Provider value={state}>
@@ -49,8 +50,9 @@ function App() {
           <Route exact path={"/updateme"} component={UpdateUser} />
           <Route exact path={"/createstore"} component={CreateStore} />
           <Route exact path={"/store/id/:storeId"} component={SeeStore} />
-          <Route exact path={"/store/edit/:storeId"} component={UpdateStoreContact}/>
-          <Route exact path={"/product/store/:storeId"} component={CreateProduct}/>
+          <Route exact path={"/store/edit/:storeId"} component={UpdateStoreContact} />
+          <Route exact path={"/product/store/:storeId"} component={CreateProduct} />
+          <Route exact path={"/product/item/:productId"} component={SeeProduct} />
         </Switch>
         <Footer />
       </Router>
