@@ -56,39 +56,43 @@ export default function CreateProduct() {
     const storeHasAddress = store.street && store.city && store.state && store.zip ? true : false;
     return (
         <div>
-            {storeHasAddress? <Forms formTitle={"Create Product"}>
-                <input type="file" id="file" name="file" onChange={handleFileChange} />
-                <TextInputs
-                    name={"name"}
-                    label={"name"}
-                    value={product.name}
-                    placeholder={product.name ? product.name : "BloopCo Blue Hoodie"}
-                    onChange={handleChange}
-                    type={"text"}
-                />
-                <TextInputs
-                    name={"price"}
-                    label={"Price"}
-                    value={product.price}
-                    placeholder={product.price ? product.price : "42.99"}
-                    onChange={handleChange}
-                    type={"number"}
-                />
-                <div className="form-group">
-                    <label>Product Description</label>
-                    <textarea
-                        className="form-control"
-                        rows="4"
-                        name={"description"}
-                        value={product.description}
+            {
+                storeHasAddress ? <Forms formTitle={"Create Product"}>
+                    <input type="file" id="file" name="file" onChange={handleFileChange} />
+                    <TextInputs
+                        name={"name"}
+                        label={"name"}
+                        value={product.name}
+                        placeholder={product.name ? product.name : "BloopCo Blue Hoodie"}
                         onChange={handleChange}
-                        type={"text"}></textarea>
-                </div>
-                <Buttons onClick={handleSubmit} text={"Update"} cssClass={"btn btn-info btn-sm"}>Create Product</Buttons>
-            </Forms>:<>
-                <h5>You cannot add products until you add an address to your store</h5>
-                <Link to={`/store/edit/${store._id}`} className='btn btn-sm btn-outline-info'>Edit Store Information</Link>
-            </>}
+                        type={"text"}
+                    />
+                    <TextInputs
+                        name={"price"}
+                        label={"Price"}
+                        value={product.price}
+                        placeholder={product.price ? product.price : "42.99"}
+                        onChange={handleChange}
+                        type={"number"}
+                    />
+                    <div className="form-group">
+                        <label>Product Description</label>
+                        <textarea
+                            className="form-control"
+                            rows="4"
+                            name={"description"}
+                            value={product.description}
+                            onChange={handleChange}
+                            type={"text"}></textarea>
+                    </div>
+                    <Buttons onClick={handleSubmit} text={"Update"} cssClass={"btn btn-info btn-sm"}>Create Product</Buttons>
+                </Forms>
+                    :
+                    <>
+                        <h5>You cannot add products until you add an address to your store</h5>
+                        <Link to={`/store/edit/${store._id}`} className='btn btn-sm btn-outline-info'>Edit Store Information</Link>
+                    </>
+            }
         </div>
     )
 }
