@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react"
+import { useHistory, useParams } from "react-router-dom";
 import { AppContext } from "../../../store"
 import Forms from "../../../components/Forms";
 import TextInputs from "../../../components/TextInputs";
@@ -6,9 +7,9 @@ import Buttons from "../../../components/Buttons";
 import { UserAPI } from "../../../API/UserAPI";
 
 export default function UpdateUser() {
+    const history = useHistory();
     const { user } = useContext(AppContext);
     const [update, setUpdate] = useState({
-        email: "",
         firstName: "",
         lastName: "",
         phone: "",
@@ -29,7 +30,6 @@ export default function UpdateUser() {
     const handleSubmit = async () => {
         try {
             const data = {
-                email: update.email,
                 firstName: update.firstName,
                 lastName: update.lastName,
                 phone: update.phone,
@@ -43,15 +43,16 @@ export default function UpdateUser() {
             const res = await UserAPI.update(user._id, data)
             if (res.status === 200) {
                 const userInfo = {
-                    email: res.data.user.email,
-                    firstName: res.data.user.firstName,
-                    lastName: res.data.user.lastName,
-                    _id: res.data.user._id,
-                    userType: res.data.user.userType,
+                    email: res.data.updatedUser.email,
+                    firstName: res.data.updatedUser.firstName,
+                    lastName: res.data.updatedUser.lastName,
+                    _id: res.data.updatedUser._id,
+                    userType: res.data.updatedUser.userType,
 
                 }
                 localStorage.setItem("ShopEZToken", JSON.stringify(res.data.token))
                 localStorage.setItem("ShopEZUser", JSON.stringify(userInfo))
+                history.push(`/profile/${res.data.updatedUser._id}`)
             }
         } catch (err) {
             console.log(err);
@@ -60,14 +61,6 @@ export default function UpdateUser() {
     return (
         <div>
             <Forms formTitle={"Update Your Information"}>
-                <TextInputs
-                    name={"email"}
-                    label={"Email *"}
-                    value={update.email}
-                    placeholder={update.email}
-                    onChange={handleChange}
-                    type={"email"}
-                />
                 <TextInputs
                     name={"firstName"}
                     label={"First Name *"}

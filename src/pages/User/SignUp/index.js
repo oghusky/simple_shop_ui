@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import decode from 'jwt-decode'
-import Forms from '../../components/Forms'
-import TextInputs from '../../components/TextInputs'
-import Buttons from "../../components/Buttons";
+import Forms from '../../../components/Forms'
+import TextInputs from '../../../components/TextInputs'
+import Buttons from "../../../components/Buttons";
 
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
-import { UserAPI } from "../../API/UserAPI";
+import { UserAPI } from "../../../API/UserAPI";
 export default function SignUp() {
     const history = useHistory();
     const [signup, setSignup] = useState({
@@ -61,6 +61,7 @@ export default function SignUp() {
     }
     return (
         <div>
+            <Forms formTitle={"Sign up to shop or sell"}>
             <div className="d-flex justify-content-center">
                 <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
                     <GoogleLogin
@@ -76,7 +77,6 @@ export default function SignUp() {
                     />
                 </GoogleOAuthProvider>
             </div>
-            <Forms formTitle={"Sign up to shop or sell"}>
                 <TextInputs
                     name={"email"}
                     label={"Email *"}

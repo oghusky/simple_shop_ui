@@ -2,10 +2,9 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { AppContext } from './store';
-import decode from 'jwt-decode'
 // pages
 import Home from './pages/Home';
-import SignUp from './pages/User/Login';
+import SignUp from './pages/User/SignUp';
 import Login from './pages/User/Login';
 import UpdateUser from './pages/User/UpdateUser';
 import CreateStore from './pages/Store/CreateStore';
@@ -13,6 +12,7 @@ import SeeStore from './pages/Store/SeeStore';
 import UpdateStoreContact from './pages/Store/UpdateStoreContact';
 import CreateProduct from './pages/Products/CreateProduct';
 import SeeProduct from './pages/Products/SeeProduct';
+import Profile from './pages/User/Profile';
 // components
 import MainNav from './components/Headers/MainNav';
 import Footer from './components/Footer'
@@ -49,6 +49,7 @@ function App() {
           <Route exact path={"/login"} component={Login} />
           <Route exact path={"/updateme"} component={UpdateUser} />
           <Route exact path={"/createstore"} component={CreateStore} />
+          <Route exact path={"/profile/:userId"} component={Profile}/>
           <Route exact path={"/store/id/:storeId"} component={SeeStore} />
           <Route exact path={"/store/edit/:storeId"} component={UpdateStoreContact} />
           <Route exact path={"/product/store/:storeId"} component={CreateProduct} />

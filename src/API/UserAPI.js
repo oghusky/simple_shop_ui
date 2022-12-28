@@ -18,9 +18,16 @@ export const UserAPI = {
     },
     update: async(id,updateUser)=>{
         try{
-            return axios.put(`user/id/${id}`,updateUser, authHeader(token));
+            return axios.put(`/user/id/${id}`,updateUser, authHeader(token));
         }catch(err){
             console.log(err);
+        }
+    },
+    getMyInfo: async(id)=>{
+        try{
+            return axios.get(`/user/id/${id}`, authHeader(token));
+        }catch(err){
+            console.log(err)
         }
     },
     delete: async(userId)=>{}

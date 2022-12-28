@@ -25,11 +25,12 @@ export default function Login() {
             if (res.status === 200) {
                 localStorage.setItem("ShopEZUser", JSON.stringify(res.data.user))
                 localStorage.setItem("ShopEZToken", JSON.stringify(res.data.token))
+                history.push("/")
             }
             console.log(res)
         } catch (err) {
             console.log(err);
-         }
+        }
     }
     const handleGoogleSubmit = async (token) => {
         try {
@@ -44,33 +45,34 @@ export default function Login() {
             if (res.status === 200) {
                 localStorage.setItem("ShopEZUser", JSON.stringify(res.data.user))
                 localStorage.setItem("ShopEZToken", JSON.stringify(res.data.token))
+                history.push("/")
             }
             console.log(res)
-        } catch (err) { 
+        } catch (err) {
             console.log(err);
         }
     }
     const handleGoogleFail = async (result) => {
         console.log(result);
     }
-  return (
-    <div>
-        <div className="d-flex justify-content-center">
-                <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
-                    <GoogleLogin
-                        size="large"
-                        theme="filled_blue"
-                        text="signup_with"
-                        onSuccess={gToken => {
-                            handleGoogleSubmit(decode(gToken.credential));
-                        }}
-                        onError={() => {
-                            handleGoogleFail('Login Failed');
-                        }}
-                    />
-                </GoogleOAuthProvider>
-            </div>
+    return (
+        <div>
             <Forms formTitle={"Login"}>
+                <div className="d-flex justify-content-center">
+                    <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+                        <GoogleLogin
+                            size="large"
+                            theme="filled_blue"
+                            text="signup_with"
+                            onSuccess={gToken => {
+                                handleGoogleSubmit(decode(gToken.credential));
+                            }}
+                            onError={() => {
+                                handleGoogleFail('Login Failed');
+                            }}
+                        />
+                    </GoogleOAuthProvider>
+                </div>
                 <TextInputs
                     name={"email"}
                     label={"Email *"}
@@ -82,7 +84,7 @@ export default function Login() {
                 />
                 <TextInputs
                     name={"password"}
-                    label={"Password"}
+                    label={"Password *"}
                     value={login.password}
                     placeholder={"Enter Password"}
                     type={"password"}
@@ -91,7 +93,7 @@ export default function Login() {
                 />
                 <Buttons onClick={handleSubmit} text={"Login"} cssClass={"btn btn-primary btn-sm"} />
             </Forms>
-                    <p>Don't have an account? <Link to="/signup">Sign Up</Link></p>
-    </div>
-  )
+            <p>Don't have an account? <Link to="/signup">Sign Up</Link></p>
+        </div>
+    )
 }

@@ -148,10 +148,10 @@ export default function UpdateStoreContact() {
                 <Buttons onClick={handleSubmit} text={"Update"} cssClass={"btn btn-info btn-sm"}>Update</Buttons>
             </Forms>
             <Forms formTitle={"Store Policy"}>
-                <div class="form-group">
+                <div className="form-group">
                     <label for="exampleFormControlTextarea1">Store Policy</label>
                     <textarea
-                        class="form-control"
+                        className="form-control"
                         rows="4"
                         name={"policies"}
                         value={store.policies}

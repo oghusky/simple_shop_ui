@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams, useHistory, Link } from 'react-router-dom'
 import { ProductAPI } from '../../../API/ProductAPi'
 import { ImageAPI } from '../../../API/ImageAPI'
 import { StoreAPI } from '../../../API/StoreAPI'
@@ -13,6 +13,7 @@ export default function CreateProduct() {
     const params = useParams();
     const { storeId } = params;
     // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [store, setStore] = useState({});
     const [product, setProduct] = useState({
         name: "",
         price: 0,
@@ -26,6 +27,7 @@ export default function CreateProduct() {
     const getStoreName = async (id) => {
         try {
             const res = await StoreAPI.getById(id);
+            setStore(res.data.store);
             setProduct({ ...product, storeName: res.data.store.name });
         } catch (err) { }
     }
@@ -38,7 +40,7 @@ export default function CreateProduct() {
             const res = await ProductAPI.create(storeId, product);
             if (res.status === 201) {
                 console.log(res.data.product);
-                const {_id } = res.data.product;
+                const { _id } = res.data.product;
                 ImageAPI.createItemImage({ file, storeName: product.storeName, storeId, productId: _id, imageType: "product" })
                 history.push(`/product/item/${_id}`)
             }
@@ -51,9 +53,10 @@ export default function CreateProduct() {
         const { target } = e;
         setFile(target.files[0]);
     }
+    const storeHasAddress = store.street && store.city && store.state && store.zip ? true : false;
     return (
         <div>
-            <Forms formTitle={"Create Product"}>
+            {storeHasAddress? <Forms formTitle={"Create Product"}>
                 <input type="file" id="file" name="file" onChange={handleFileChange} />
                 <TextInputs
                     name={"name"}
@@ -82,7 +85,10 @@ export default function CreateProduct() {
                         type={"text"}></textarea>
                 </div>
                 <Buttons onClick={handleSubmit} text={"Update"} cssClass={"btn btn-info btn-sm"}>Create Product</Buttons>
-            </Forms>
+            </Forms>:<>
+                <h5>You cannot add products until you add an address to your store</h5>
+                <Link to={`/store/edit/${store._id}`} className='btn btn-sm btn-outline-info'>Edit Store Information</Link>
+            </>}
         </div>
     )
 }
