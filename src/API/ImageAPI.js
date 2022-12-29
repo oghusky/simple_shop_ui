@@ -40,5 +40,19 @@ export const ImageAPI = {
         } catch (err) {
             console.log(err)
         }
+    },
+    getImageByProductId: async (id) => {
+        try {
+            return axios.get(`/image/item/${id}`)
+        } catch (err) {
+            console.log(err)
+        }
+    },
+    getImagesByStoreId: async (id) => {
+        try {
+            return axios.get(`/image/store/${id}`);
+        } catch (err) {
+            console.log(err)
+        }
     }
 }
