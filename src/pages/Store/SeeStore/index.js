@@ -39,10 +39,7 @@ export default function SeeStore() {
             console.log(err)
         }
     }
-    const filterImages = (img, p) => {
-        const i = img.find(i => i.productId === p)
-        if (i) return i.url
-    }
+
     const productList = store.products.map(p => <ProductCard images={images} p={p} />)
     return (
         <div className='container'>
