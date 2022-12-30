@@ -1,0 +1,19 @@
+.Hero {
+  min-height: 50vh;
+  background: rgb(185, 202, 187);
+  background: radial-gradient(
+    circle,
+    rgba(185, 202, 187, 1) 0%,
+    rgba(62, 62, 62, 1) 100%
+  );
+  opacity: .8;
+  color: white;
+}
+
+#hero-h1{
+    opacity: 1;
+}
+
+.Hero p{
+  font-size: 30px;
+}

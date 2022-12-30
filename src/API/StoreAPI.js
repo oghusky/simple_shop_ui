@@ -41,5 +41,12 @@ export const StoreAPI = {
         } catch (err) {
             console.log(err);
         }
+    },
+    getStoreBySafeName: async(name)=>{
+        try{
+            return axios.get(`/store/safe/${name}`);
+        }catch(err){
+            console.log(err);
+        }
     }
 }

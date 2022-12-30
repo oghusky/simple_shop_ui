@@ -9,6 +9,7 @@ import Login from './pages/User/Login';
 import UpdateUser from './pages/User/UpdateUser';
 import CreateStore from './pages/Store/CreateStore';
 import SeeStore from './pages/Store/SeeStore';
+import SeeStoreName from './pages/Store/SeeStoreName';
 import UpdateStoreContact from './pages/Store/UpdateStoreContact';
 import CreateProduct from './pages/Products/CreateProduct';
 import SeeProduct from './pages/Products/SeeProduct';
@@ -51,6 +52,7 @@ function App() {
           <Route exact path={"/createstore"} component={CreateStore} />
           <Route exact path={"/profile/:userId"} component={Profile}/>
           <Route exact path={"/store/id/:storeId"} component={SeeStore} />
+          <Route exact path={"/store/safe/:storeName"} component={SeeStoreName}/>
           <Route exact path={"/store/edit/:storeId"} component={UpdateStoreContact} />
           <Route exact path={"/product/store/:storeId"} component={CreateProduct} />
           <Route exact path={"/product/item/:productId"} component={SeeProduct} />
