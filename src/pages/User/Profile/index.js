@@ -29,7 +29,7 @@ export default function Profile() {
     }, [params])
     const storeList = stores.map(s => (
         <div key={s._id}>
-            <p>{s.name} <Link to={`/store/edit/${s._id}`}className='btn btn-sm btn-outline-primary'>Edit Store Information</Link></p>
+            <p>{s.name} <Link to={`/store/edit/${s._id}`} className='btn btn-sm btn-outline-primary'>Edit Store Information</Link></p>
         </div>
     ))
     const showEditMeButton = myInfo._id === params.userId ? <Link className='btn btn-sm btn-outline-primary' to="/updateme">Edit Your Information</Link> : null
@@ -38,15 +38,23 @@ export default function Profile() {
         <div>
 
             <h5>Your Personal Information  {showEditMeButton}</h5>
-            <p>{myInfo.firstName} {myInfo.lastName}</p>
-            <p>{myInfo.email}</p>
+            <p className='my-0'>{myInfo.firstName} {myInfo.lastName}</p>
+            <p className='my-0'>{myInfo.email}</p>
             {myInfo.address ? <>
-                <p>{myInfo.address.street ? myInfo.address.street : null}</p>
-                <p>{myInfo.address.suite ? myInfo.address.suite : null}</p>
-                <p>{myInfo.address.city ? myInfo.address.city : null}, {myInfo.address.state ? myInfo.address.state : null} {myInfo.address.zip ? myInfo.address.zip : null}</p>
+                <p className='my-0'>{myInfo.address.street ? myInfo.address.street : null}</p>
+                <p className='my-0'>{myInfo.address.suite ? myInfo.address.suite : null}</p>
+                <p className='my-0'>{myInfo.address.city ? myInfo.address.city : null}, {myInfo.address.state ? myInfo.address.state : null} {myInfo.address.zip ? myInfo.address.zip : null}</p>
             </> : null}
-            {storeList ? <h5>Your Store(s) </h5> : null}
-            {storeList}
+            <div className='my-3'>
+                {storeList.length > 0 ?
+                    <>
+                        <h5>Your Store(s) </h5>
+                        <div>
+                            {storeList}
+                        </div>
+                    </>
+                    : null}
+            </div>
         </div>
     )
 }
